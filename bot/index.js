@@ -752,9 +752,23 @@ app.listen(PORT, '0.0.0.0', () => {
 //  🚀  Botni ishga tushirish
 // ============================================================
 bot.launch({ dropPendingUpdates: true })
-  .then(() => {
+  .then(async () => {
     console.log('🚀 Chinor ZUV Bot (Receipt Edition) muvaffaqiyatli ishga tushdi!');
     console.log('📡 Polling faol | Bot: @dostavkaqabulqilubvchibot');
+    
+    // Asosiy "Menu" tugmasining manzilini avtomatik to'g'rilash:
+    try {
+      await bot.telegram.setChatMenuButton({
+        menu_button: {
+          type: 'web_app',
+          text: '🍔 Menyu',
+          web_app: { url: WEBAPP_URL }
+        }
+      });
+      console.log('✅ Menu tugma manzili yangilandi:', WEBAPP_URL);
+    } catch(err) {
+      console.error('Menu tugmani yangilashda xatolik:', err.message);
+    }
   })
   .catch((err) => {
     console.error('❌ Bot launch xatosi:', err.message);
