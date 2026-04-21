@@ -740,7 +740,7 @@ bot.command('orders', async (ctx) => {
 // ============================================================
 const app = express();
 app.use(express.static(path.join(__dirname, '../webapp/dist')));
-app.get('/{*path}', (req, res) => {
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, '../webapp/dist', 'index.html'));
 });
 const PORT = process.env.PORT || 5173;
